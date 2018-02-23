@@ -88,8 +88,8 @@ function compile($code, $parameters)
                 }
                 break;
             default:
-                $result = "ERROR";
-                break(2);
+                $i++;
+                break;
         }
     }
     return $result;
