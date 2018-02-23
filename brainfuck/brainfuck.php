@@ -8,7 +8,12 @@
 
 function getArray()
 {
-    $parametersString = $_POST['parameters'];
+
+    $parametersString = "";
+    if (isset($_POST['parameters'])) {
+        $parametersString = $_REQUEST['parameters'];
+    }
+
     $parametersArray = [];
     for ($i = 0; $i < strlen($parametersString); $i++) {
         $parametersArray[$i] = ord($parametersString[$i]);
@@ -24,8 +29,11 @@ function compile($code, $parameters)
     $result = "";
     $openBrackets = [];
     if (empty($parameters)) {
-        array_push($myParameters, 0);
-        $myParametersLastIndex++;
+
+        for ($i = 0; $i < 30; $i++) {
+            array_push($myParameters, 0);
+            $myParametersLastIndex++;
+        }
     }
     for ($i = 0; $i < strlen($code);) {
         switch ($code{$i}) {
@@ -72,15 +80,18 @@ function compile($code, $parameters)
                 if ($myParameters[$myParametersLastIndex] == 0) {
                     do {
                         $i++;
+                        if ($code[$i] != "[") {
+                            $i--;
+                            break;
+                        }
                     } while ($code[$i] != "]");
                 } else {
                     array_push($openBrackets, $i);
                     $i++;
                 }
-
                 break;
             case "]":
-                if ($myParameters[$myParametersLastIndex] != 0) {
+                if ($myParameters[$myParametersLastIndex] == 0) {
                     $i = $openBrackets[count($openBrackets) - 1];
                 } else {
                     array_pop($openBrackets);
@@ -95,7 +106,12 @@ function compile($code, $parameters)
     return $result;
 }
 
-$code = $_POST['code'];
+require 'index.html';
+
+$code = "";
+if (isset($_POST['code'])) {
+    $code = $_POST['code'];
+}
 $parameters = getArray();
 
 echo compile($code, $parameters);

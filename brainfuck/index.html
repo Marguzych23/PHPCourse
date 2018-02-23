@@ -5,12 +5,16 @@
     <title>BrainFuck</title>
 </head>
 <body>
-<form action="brainfuck.php" method="post" name="brainfuck">
+
+<?php if (isset($_REQUEST['go'])):?>
+<?php else:?>
+<form action="<?=$_SERVER['REQUEST_URI']?>" method="post" name="brainfuck">
     <label for="code">Код программы</label>
     <textarea id="code" name="code" rows="10" cols="45"></textarea><br><br><br>
     <label for="parameters">Входные параметры</label>
     <input id="parameters" type="text" name="parameters"><br><br><br>
     <input type="submit" value="Отправить">
 </form>
+<?php endif?>
 </body>
 </html>
