@@ -11,7 +11,7 @@ function getArray()
 
     $parametersString = "";
     if (isset($_POST['parameters'])) {
-        $parametersString = $_REQUEST['parameters'];
+        $parametersString = $_POST['parameters'];
     }
 
     $parametersArray = [];
