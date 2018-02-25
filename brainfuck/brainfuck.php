@@ -8,12 +8,10 @@
 
 function getArray()
 {
-
     $parametersString = "";
     if (isset($_POST['parameters'])) {
         $parametersString = $_POST['parameters'];
     }
-
     $parametersArray = [];
     for ($i = 0; $i < strlen($parametersString); $i++) {
         $parametersArray[$i] = ord($parametersString[$i]);
@@ -29,7 +27,6 @@ function compile($code, $parameters)
     $result = "";
     $openBrackets = [];
     if (empty($parameters)) {
-
         for ($i = 0; $i < 30; $i++) {
             array_push($myParameters, 0);
             $myParametersLastIndex++;
@@ -78,20 +75,31 @@ function compile($code, $parameters)
                 break;
             case "[":
                 if ($myParameters[$myParametersLastIndex] == 0) {
-                    do {
-                        $i++;
-                        if ($code[$i] != "[") {
-                            $i--;
-                            break;
+                    $closeBrackets = 1;
+                    $j = $i;
+                    while (true) {
+                        $j++;
+                        if ($code[$j] == "[") {
+                            $closeBrackets++;
+                        } elseif ($code[$j] == "]") {
+                            $closeBrackets--;
                         }
-                    } while ($code[$i] != "]");
+                        if ($closeBrackets == 0) {
+                            if ($i == $openBrackets[count($openBrackets) - 1]) {
+                                array_pop($openBrackets);
+                                $i += $j + 1;
+                            }
+                            break(2);
+                        }
+                    }
                 } else {
                     array_push($openBrackets, $i);
                     $i++;
                 }
                 break;
             case "]":
-                if ($myParameters[$myParametersLastIndex] == 0) {
+                if ($myParameters[$myParametersLastIndex] != 0) {
+//                    print ($openBrackets[count($openBrackets) - 1]);
                     $i = $openBrackets[count($openBrackets) - 1];
                 } else {
                     array_pop($openBrackets);
@@ -106,14 +114,14 @@ function compile($code, $parameters)
     return $result;
 }
 
-require 'index.html';
+//require 'index.html';
 
-$code = "";
+$code = "++++++++[>++++[>++>+++>+++>+<<<<-]>+>+>->>+[<]<-]>>.>---.+++++++..+++.>>.<-.<.+++.------.--------.>>+.>++.";
 if (isset($_POST['code'])) {
     $code = $_POST['code'];
 }
 $parameters = getArray();
 
-echo compile($code, $parameters);
+print compile($code, $parameters);
 ?>
 
