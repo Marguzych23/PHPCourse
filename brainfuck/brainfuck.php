@@ -76,20 +76,18 @@ function compile($code, $parameters)
             case "[":
                 if ($myParameters[$myParametersLastIndex] == 0) {
                     $closeBrackets = 1;
-                    $j = $i;
                     while (true) {
-                        $j++;
-                        if ($code[$j] == "[") {
+                        $i++;
+                        if ($code[$i] == "[") {
                             $closeBrackets++;
-                        } elseif ($code[$j] == "]") {
+                        } elseif ($code[$i] == "]") {
                             $closeBrackets--;
                         }
                         if ($closeBrackets == 0) {
-                            if ($i == $openBrackets[count($openBrackets) - 1]) {
-                                array_pop($openBrackets);
-                                $i += $j + 1;
-                            }
-                            break(2);
+//                            if ($i == $openBrackets[count($openBrackets) - 1]) {
+//                                array_pop($openBrackets);
+//                                $i = $j;
+//                            }
                         }
                     }
                 } else {
@@ -100,7 +98,7 @@ function compile($code, $parameters)
             case "]":
                 if ($myParameters[$myParametersLastIndex] != 0) {
 //                    print ($openBrackets[count($openBrackets) - 1]);
-                    $i = $openBrackets[count($openBrackets) - 1];
+                    $i = $openBrackets[count($openBrackets) - 1] + 1;
                 } else {
                     array_pop($openBrackets);
                     $i++;
@@ -114,14 +112,15 @@ function compile($code, $parameters)
     return $result;
 }
 
-//require 'index.html';
+require 'index.html';
 
-$code = "++++++++[>++++[>++>+++>+++>+<<<<-]>+>+>->>+[<]<-]>>.>---.+++++++..+++.>>.<-.<.+++.------.--------.>>+.>++.";
+$code = "";
+//$code = "++++++++[>++++[>++>+++>+++>+<<<<-]>+>+>->>+[<]<-]>>.>---.+++++++..+++.>>.<-.<.+++.------.--------.>>+.>++.";
 if (isset($_POST['code'])) {
     $code = $_POST['code'];
 }
 $parameters = getArray();
 
-print compile($code, $parameters);
+echo compile($code, $parameters);
 ?>
 
