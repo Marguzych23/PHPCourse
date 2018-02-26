@@ -84,10 +84,7 @@ function compile($code, $parameters)
                             $closeBrackets--;
                         }
                         if ($closeBrackets == 0) {
-//                            if ($i == $openBrackets[count($openBrackets) - 1]) {
-//                                array_pop($openBrackets);
-//                                $i = $j;
-//                            }
+                            break;
                         }
                     }
                 } else {
@@ -97,7 +94,6 @@ function compile($code, $parameters)
                 break;
             case "]":
                 if ($myParameters[$myParametersLastIndex] != 0) {
-//                    print ($openBrackets[count($openBrackets) - 1]);
                     $i = $openBrackets[count($openBrackets) - 1] + 1;
                 } else {
                     array_pop($openBrackets);
