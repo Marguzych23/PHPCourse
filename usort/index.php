@@ -25,24 +25,20 @@ function myStringsSortBySecondWord(string $str1, string $str2)
 
 function shuffleString(string &$string)
 {
-    $emptyString = "";
     $string_words_array = explode(" ", $string);
     shuffle($string_words_array);
-    for ($i = 0; $i < count($string_words_array); $i++) {
-        $emptyString .= $string_words_array[$i];
-        if ($i + 1 != count($string_words_array)) {
-            $emptyString .= " ";
-        }
-    }
-    return $emptyString;
+    $emptyString = implode(" ", $string_words_array);
+    return trim($emptyString);
 }
 
 function mainFunction(array &$strings_array)
 {
     $new_strings_array = [];
     for ($i = 0; $i < count($strings_array); $i++) {
-        array_push($new_strings_array, $strings_array[$i]);
-        array_push($new_strings_array, shuffleString($strings_array[$i]));
+        if (!empty(trim($strings_array[$i]))) {
+            array_push($new_strings_array, trim($strings_array[$i]));
+            array_push($new_strings_array, shuffleString($strings_array[$i]));
+        }
     }
 
     usort($new_strings_array, "myStringsSortBySecondWord");
