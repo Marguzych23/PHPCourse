@@ -29,7 +29,8 @@ class GeneratorDataItem
     public $calculated_probability;
 }
 
-function generate_calculated_probabilities(array &$array, int $count) {
+function generate_calculated_probabilities(array &$array, int $count)
+{
     foreach ($array as $item) {
         if ($item instanceof GeneratorDataItem) {
             $item->calculated_probability = $item->count / $count;
@@ -57,7 +58,10 @@ function random_generator(JsonData $jsonData, int $num)
         if (isset($jsonData)) {
             $randomStringWeight = 0;
             try {
-                $randomStringWeight = mt_rand(0, $jsonData->sum-1);
+                $max = $jsonData->sum - 1;
+                if ($max > 0) {
+                    $randomStringWeight = random_int(0, $max);
+                }
             } catch (Exception $e) {
             }
 //            if ($randomStringWeight == 0) continue;
