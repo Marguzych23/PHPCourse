@@ -57,9 +57,10 @@ function random_generator(JsonData $jsonData, int $num)
         if (isset($jsonData)) {
             $randomStringWeight = 0;
             try {
-                $randomStringWeight = random_int(0, $jsonData->sum);
+                $randomStringWeight = mt_rand(0, $jsonData->sum-1);
             } catch (Exception $e) {
             }
+//            if ($randomStringWeight == 0) continue;
             $data = $jsonData->data;
             if (isset($data[0]) and $data[0] instanceof DataItem) {
                 $emptyWeight = 0;
@@ -69,7 +70,7 @@ function random_generator(JsonData $jsonData, int $num)
 //                        echo $j;
                         if ($emptyWeight <= $randomStringWeight) {
                             $emptyWeight += $data[$j]->weight;
-                            if ($emptyWeight >= $randomStringWeight) {
+                            if ($emptyWeight > $randomStringWeight) {
                                 yield $data[$j]->text;
                                 break;
                             }
