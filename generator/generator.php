@@ -2,19 +2,20 @@
 /**
  * Created by PhpStorm.
  * User: Marguzych
- * Date: 04.03.2018
- * Time: 19:04
+ * Date: 25.03.2018
+ * Time: 12:35
+ * @param string $string
+ * @return string
  */
 
-require 'index.html';
-function modifyString($example): string
+function string_modifier(string &$string)
 {
-    $modifiedExample = "";
-    function str_generator($example)
+    function string_generator(string &$string)
     {
+        $string_chars_array = str_split($string);
         static $changes = 0;
-        for ($i = 0; $i < strlen($example); $i++) {
-            switch ($example[$i]) {
+        foreach ($string_chars_array as $char) {
+            switch ($char) {
                 case "h":
                     $changes++;
                     yield "4";
@@ -32,26 +33,24 @@ function modifyString($example): string
                     yield "0";
                     break;
                 default:
-                    yield $example[$i];
+                    yield $char;
                     break;
             }
         }
+
         return $changes;
     }
 
-    $generator = str_generator($example);
-    foreach ($generator as $i) {
-        $modifiedExample .= $i;
+    $modifiedString = "";
+
+    $generator = string_generator($string);
+    foreach ($generator as $char) {
+        $modifiedString .= $char;
     }
 
-    echo "Число замен: " . $generator->getReturn() . "<br>";
-    return $modifiedExample;
+    echo "Количество изминений: " . $generator->getReturn() . "</br>";
+
+    return $modifiedString;
 }
 
-$message = "";
-if (isset($_POST['message'])) {
-    $message = $_POST['message'];
-}
-
-echo "Рузультат: " . modifyString($message);
 ?>
