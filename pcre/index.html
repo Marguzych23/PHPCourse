@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+<?php if (isset($_REQUEST['go'])):?>
+<?php else:?>
+<form action="<?=$_SERVER['REQUEST_URI']?>" method="POST">
+    <label for="password">
+        Пароль:
+    </label>
+    <input type="text" id="password" name="password"><br>
+    <input type="submit" name="go" value="Отправить"><br>
+</form>
+<?php endif?>
+
+</body>
+</html>
