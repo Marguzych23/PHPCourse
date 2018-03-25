@@ -20,7 +20,7 @@ function check_password(string &$password)
 
 //    $specials = "^(?=.*[A-Z])(?=.*[%$#_*])(?=.*[0-9].*[0-9])(?=.*[a-z].*[a-z]).*$";
 
-    if (strlen($password) < 2) {
+    if (strlen($password) < 10) {
         array_push($errors, "в пароле содержится менее 10 символов");
     } else {
         foreach ($patterns as $item) {
