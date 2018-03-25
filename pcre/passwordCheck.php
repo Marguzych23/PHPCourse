@@ -11,19 +11,19 @@ function check_password(string &$password)
 {
     $errors = [];
 
-    $a = array(
+    $patterns = array(
         0 => ["[A-Z]", "латинских прописных букв"],
         1 => ["[a-z]", "латинских строчных букв"],
         2 => ["[0-9]", "цифр"],
         3 => ["[\\*%$#_]", "специальных символов"],
     );
 
-    $specials = "^(?=.*[A-Z])(?=.*[%$#_*])(?=.*[0-9].*[0-9])(?=.*[a-z].*[a-z]).*$";
+//    $specials = "^(?=.*[A-Z])(?=.*[%$#_*])(?=.*[0-9].*[0-9])(?=.*[a-z].*[a-z]).*$";
 
     if (strlen($password) < 2) {
         array_push($errors, "в пароле содержится менее 10 символов");
     } else {
-        foreach ($a as $item) {
+        foreach ($patterns as $item) {
             $pattern = "/(.*" . $item[0] . "+.*){2,}/";
 //            echo "<tt>" . htmlspecialchars($pattern) . "</tt></br>";
             if (!preg_match($pattern, $password)) {
