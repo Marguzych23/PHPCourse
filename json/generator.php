@@ -90,7 +90,7 @@ function random_generator(JsonData $jsonData, int $num)
 
 function random_generator_handler(JsonData $jsonData)
 {
-    $generator = random_generator($jsonData, 1000);
+    $generator = random_generator($jsonData, 10000);
     $data = [];
 
     foreach ($generator as $string) {
@@ -104,7 +104,7 @@ function random_generator_handler(JsonData $jsonData)
             array_push($data, $dataItem);
         }
     }
-    generate_calculated_probabilities($data, 1000);
+    generate_calculated_probabilities($data, 10000);
 
     return $data;
 }
