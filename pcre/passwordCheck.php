@@ -29,7 +29,7 @@ function check_password(string &$password)
             if (!preg_match($pattern, $password)) {
                 array_push($errors, "в пароле содержится менее 2 " . $item[1]);
             }
-            $pattern = "/" . $item[0] . "{3,}/";
+            $pattern = "/" . $item[0] . "{4,}/";
 //            echo "<tt>" . htmlspecialchars($pattern) . "</tt></br>";
             if (preg_match($pattern, $password)) {
                 array_push($errors, "пароль содержит более 3 " . $item[1] . " подряд");
