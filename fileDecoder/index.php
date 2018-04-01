@@ -13,8 +13,10 @@ function decode_by_first_rules(string $upper, string &$string)
 {
     if ($upper == "true") {
         return strtoupper($string);
+//        return mb_strtoupper($string);
     } else if ($upper == "false") {
         return strtolower($string);
+//        return mb_strtolower($string);
     }
     return $string;
 }
@@ -75,7 +77,6 @@ function get_rules(array $config)
         );
     }
 
-
     if ($second_rule["direction"] != "+" and $second_rule["direction"] != "-") {
         array_push($errors, "Invalid character for the second rule - " . $second_rule["direction"]);
     } else {
@@ -128,12 +129,7 @@ function echo_decode_data_from_file($file, array $rules)
         }
         echo "<br>";
     }
-
 }
-
-echo '<pre>';
-print_r($config);
-echo '</pre>';
 
 $rules = get_rules($config);
 
