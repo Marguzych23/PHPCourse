@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+<?php if (isset($_REQUEST['go'])):?>
+<?php else:?>
+<form action="<?=$_SERVER['REQUEST_URI']?>" method="POST">
+    <h3>Ваш текст:</h3><br>
+    <textarea id="message" name="message" rows="10" cols="45"></textarea><br>
+
+    <div class="select-logger">
+        <h3>Выберите логгер:</h3>
+        <input type="radio" name="loggerType" value="file">FileLogger</input><br>
+        <input type="radio" name="loggerType" value="browser" checked>BrowserLogger</input><br>
+    </div>
+
+    <div class="file-logger">
+        <h4>Название файла(для FileLogger):</h4>
+        <input type="text" id="filename" name="filename">
+    </div>
+    <div class="browser-logger">
+        <h4>Выбор формата даты(для BrowserLogger):</h4>
+        <input type="radio" name="browserDate" value="0" checked>Выключено</input><br>
+        <input type="radio" name="browserDate" value="1">Время</input><br>
+        <input type="radio" name="browserDate" value="2">Дата и время</input><br>
+    </div><br>
+
+    <input type="submit" name="go" value="Отправить"><br>
+</form>
+<?php endif?>
+
+</body>
+</html>
