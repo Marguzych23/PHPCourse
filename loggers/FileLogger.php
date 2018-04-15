@@ -9,68 +9,40 @@
 class FileLogger extends Logger
 {
 
-    private $file;
+    private $filename;
     private $fp;
 
-    public function __construct()
+    public function __construct(string $filename)
     {
-        $arguments = func_get_args();
-        $argumentsNumber = func_num_args();
-
-        $data = [];
-
-        switch ($argumentsNumber) {
-            case 1:
-                {
-                    if (file_exists($arguments[0])) {
-                        $this->file = $arguments[0];
-                    }
-                    break;
-                }
-            case 2:
-                {
-                    foreach ($arguments as $item) {
-                        if (is_string($item)) {
-                            if (file_exists($item)) {
-                                $this->file = $item;
-                                break;
-                            }
-                        } else {
-                            $data = $item;
-                        }
-                    }
-                    if (empty($data)) {
-                        $data = $arguments[1];
-                    }
-                    break;
-                }
-            default:
-                {
-//                    Error
-                }
-        }
-
-        parent::__construct($data);
+        $this->filename = $filename;
+        parent::__construct();
     }
 
 
     function __destruct()
     {
-//        fclose($this->fp);
+        fclose($this->fp);
     }
 
-    public function writeCheckedData()
+    public function write(array $data)
     {
-        $this->checkData();
-        $this->fp = fopen($this->file, "a+");
-        foreach ($this->checkedData as $item) {
+        $this->fp = fopen($this->filename, "a+");
+        foreach ($data as $item) {
             $fw = fwrite($this->fp, $item."\n");
             if (!$fw) {
 //                Error
             }
         }
-        fclose($this->fp);
     }
+
+    /**
+     * @param $filename
+     */
+    public function setFile($filename): void
+    {
+        $this->filename = $filename;
+    }
+
 
 
 }

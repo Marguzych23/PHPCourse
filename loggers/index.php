@@ -11,6 +11,7 @@ require "index.html";
 include_once "Logger.php";
 include_once "BrowserLogger.php";
 include_once "FileLogger.php";
+include_once "methodsWithData.php";
 
 if (isset($_POST['message']) and isset($_POST['loggerType'])) {
     $message = $_POST['message'];
@@ -29,7 +30,7 @@ if (isset($_POST['message']) and isset($_POST['loggerType'])) {
                 if (isset($_POST['filename'])) {
                     $browserDate = $_POST['filename'];
                 }
-                $logger = new FileLogger($message, $filename);
+                $logger = new FileLogger($filename);
                 break;
             }
         case "browser":
@@ -38,7 +39,7 @@ if (isset($_POST['message']) and isset($_POST['loggerType'])) {
                 if (isset($_POST['browserDate'])) {
                     $browserDate = $_POST['browserDate'];
                 }
-                $logger = new BrowserLogger($message, $browserDate);
+                $logger = new BrowserLogger($browserDate);
                 break;
             }
         default:
@@ -47,8 +48,9 @@ if (isset($_POST['message']) and isset($_POST['loggerType'])) {
             }
     }
 
+    $data = checkData($message);
+
     if ($logger instanceof Logger) {
-        $logger->checkData();
-        $logger->writeCheckedData();
+        $logger->write($data);
     }
 }

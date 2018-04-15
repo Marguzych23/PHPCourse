@@ -17,53 +17,16 @@ class BrowserLogger extends Logger
 
     /**
      * BrowserLogger constructor.
+     * @param int $dateConst
      */
-    public function __construct()
+    public function __construct(int $dateConst)
     {
-
-        $arguments = func_get_args();
-        $argumentsNumber = func_num_args();
-
-        $data = [];
-
-        switch ($argumentsNumber) {
-            case 1:
-                {
-                    if (is_numeric($arguments[0])) {
-                        $this->dateConst = $arguments[0];
-                    } else {
-                        $data = $arguments[0];
-                        $this->dateConst = 0;
-                    }
-                    break;
-                }
-            case 2:
-                {
-                    foreach ($arguments as $item) {
-                        if (is_numeric($item)) {
-                            $this->dateConst = $item;
-                            break;
-                        } else {
-                            $data = $item;
-                        }
-                    }
-                    if (empty($data)) {
-                        $data = $arguments[1];
-                    }
-                    break;
-                }
-            default:
-                {
-//                    Error
-                }
-        }
-
-        parent::__construct($data);
+        $this->dateConst = $dateConst;
+        parent::__construct();
     }
 
 
-
-    public function writeCheckedData()
+    public function write(array $data)
     {
         switch ($this->dateConst) {
             case 1:
@@ -77,9 +40,25 @@ class BrowserLogger extends Logger
                     break;
                 }
         }
-        $this->checkData();
-        foreach ($this->checkedData as $item) {
+        foreach ($data as $item) {
             echo $item . "<br>";
         }
     }
+
+    /**
+     * @return int
+     */
+    public function getDateConst(): int
+    {
+        return $this->dateConst;
+    }
+
+    /**
+     * @param int $dateConst
+     */
+    public function setDateConst(int $dateConst): void
+    {
+        $this->dateConst = $dateConst;
+    }
+
 }
