@@ -9,7 +9,7 @@
 namespace myExceptions;
 
 
-class MyThirdException extends \Exception
+class MyThirdException extends MyFirstException
 {
 
 }

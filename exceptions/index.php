@@ -16,9 +16,9 @@ $myClass = new MyClass();
 
 try {
     $myClass->firstMethod(true);
-} catch (\myExceptions\MyFirstException $e) {
-    print $e->getMessage();
 } catch (\myExceptions\MySecondException $e) {
+    print $e->getMessage();
+} catch (\myExceptions\MyFirstException $e) {
     print $e->getMessage();
 } finally {
     print " on called firstMethod()." . "\n";
