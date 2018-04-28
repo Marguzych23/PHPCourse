@@ -41,16 +41,17 @@ class Month implements IteratorAggregate
         $date = new \DateTime();
         $date->setDate($this->year, $this->month, 1);
         while (true) {
-            if ($date->format("M") != $this->month) {
+            if ($date->format("m") != $this->month) {
                 break;
             }
-            array_push($monthDays, $date->format("D"));
+            array_push($monthDays, $this->reformCode($date));
             try {
                 $date->add(new \DateInterval("P1D"));
             } catch (\Exception $e) {
+                print "sad";
             }
         }
-        return new MonthIterator(null);
+        return new MonthIterator($monthDays);
     }
 
     public function getWeekDay(int $day)
@@ -60,11 +61,15 @@ class Month implements IteratorAggregate
         if ($date->format("d") != $day) {
             throw new \ArgumentCountError("Wrong day number!");
         }
+        return $this->reformCode($date);
+    }
+
+    private function reformCode(\DateTime $date) {
         $weekDay = $date->format("D");
         if ($weekDay == "Sun") {
             $weekDay .= "\n";
         }
-        if ($day == 1) {
+        if ($date->format("d") == 1) {
             $count = 7;
             while (true) {
                 if ($date->format("D") == "Sun") {
@@ -82,7 +87,6 @@ class Month implements IteratorAggregate
                 }
             }
         }
-
         return $weekDay;
     }
 }

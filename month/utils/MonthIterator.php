@@ -45,8 +45,7 @@ class MonthIterator implements Iterator
      */
     public function next()
     {
-        $var = next($this->var);
-        return $var;
+        next($this->var);
     }
 
     /**
