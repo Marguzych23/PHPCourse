@@ -61,13 +61,17 @@ class Month implements IteratorAggregate
         if ($date->format("d") != $day) {
             throw new \ArgumentCountError("Wrong day number!");
         }
-        return $this->reformCode($date);
+        return $date->format("D");
     }
 
-    private function reformCode(\DateTime $date) {
+    private function reformCode(\DateTime $date, bool $bool = false)
+    {
+        $day = $date->format("d");
         $weekDay = $date->format("D");
+        $start = "";
+        $end = "";
         if ($weekDay == "Sun") {
-            $weekDay .= "\n";
+            $end .= "\n";
         }
         if ($date->format("d") == 1) {
             $count = 7;
@@ -83,10 +87,13 @@ class Month implements IteratorAggregate
             }
             if ($count != 7) {
                 for ($i = 0; $i < $count; $i++) {
-                    $weekDay = " " . $weekDay;
+                    $start .= " ";
                 }
             }
         }
-        return $weekDay;
+        if ($bool) {
+            return $start . $weekDay . $end;
+        }
+        return $start . $day . $end;
     }
 }

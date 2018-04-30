@@ -17,9 +17,9 @@ spl_autoload_register(function ($class_name) {
 use utils\Month;
 
 $month = new Month(4, 2018);
-print $month->getWeekDay(29);
+print $month->getWeekDay(29) . "\n";
 
 
 foreach ($month->getIterator() as $day) {
-    print $day;
+    print $day . "  ";
 }
