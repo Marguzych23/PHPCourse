@@ -71,7 +71,7 @@ class Month implements IteratorAggregate
         $start = "";
         $end = "";
         if ($weekDay == "Sun") {
-            $end .= "\n";
+            $end .= "<br>";
         }
         if ($date->format("d") == 1) {
             $count = 7;
@@ -87,7 +87,7 @@ class Month implements IteratorAggregate
             }
             if ($count != 7) {
                 for ($i = 0; $i < $count; $i++) {
-                    $start .= " ";
+                    $start .= "&nbsp";
                 }
             }
         }
