@@ -48,7 +48,7 @@ function string_modifier(string &$string)
         $modifiedString .= $char;
     }
 
-    echo "Количество изминений: " . $generator->getReturn() . "</br>";
+    echo "Количество изменений: " . $generator->getReturn() . "</br>";
 
     return $modifiedString;
 }
