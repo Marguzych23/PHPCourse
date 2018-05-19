@@ -1,0 +1,22 @@
+[
+  {
+    "type": "1",
+    "dateTime": "19.05.18 15:45:32",
+    "data": "Qwe"
+  },
+  {
+    "type": "info",
+    "dateTime": "19.05.18 15:45:32",
+    "data": "Day"
+  },
+  {
+    "type": "warning",
+    "dateTime": "19.05.18 15:45:32",
+    "data": "Faf"
+  },
+  {
+    "type": "error",
+    "dateTime": "19.05.18 15:45:32",
+    "data": "Rubin is champion!"
+  }
+]
