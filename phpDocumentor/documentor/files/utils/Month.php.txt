@@ -74,7 +74,7 @@ class Month implements IteratorAggregate
      * @param bool $bool default = false
      * @return string
      */
-    private function reformCode(\DateTime $date, bool $bool = false)
+    private function reformCode(\DateTime $date, $bool = false)
     {
         $day = $date->format("d");
         $weekDay = $date->format("D");

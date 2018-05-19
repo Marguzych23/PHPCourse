@@ -20,7 +20,7 @@ if (isset($_POST['message']) and isset($_POST['loggerType'])) {
 
     $message = explode("\n", $message);
 
-    $logger;
+    $logger = null;
 
     switch ($loggerType) {
         case "file":
