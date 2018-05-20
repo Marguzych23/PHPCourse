@@ -9,8 +9,8 @@
 $sessionDestroyConstant = 5;
 $url = "http://localhost:63342/PHPCourse/wrapper/generator/index.php?";
 
-require 'index.html';
 session_start();
+
 if (isset($_SESSION['auth']) and isset($_SESSION['message'])) {
 //    echo $_SESSION['message'] . "1111";
 //    session_destroy();
@@ -22,6 +22,8 @@ if (isset($_SESSION['auth']) and isset($_SESSION['message'])) {
 
     $url .= $parsedUrl['query'];
 
+//    echo $url;
+
     if ($curl = curl_init()) {
         curl_setopt($curl, CURLOPT_URL, $url);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, false);
@@ -32,12 +34,13 @@ if (isset($_SESSION['auth']) and isset($_SESSION['message'])) {
         echo $out;
         curl_close($curl);
     }
-
 } else {
+
+    require 'index.html';
+
     $_SESSION['auth'] = 0;
     if (isset($_POST['message'])) {
         $_SESSION['message'] = $_POST['message'];
-        echo $_SESSION['message'];
     }
 }
 
